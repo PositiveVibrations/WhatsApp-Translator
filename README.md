@@ -1,6 +1,6 @@
 **Introduction**
 
-The WhatsApp Translation Bot is a groundbreaking tool designed to bridge language barriers in WhatsApp conversations. By integrating the power of Google Translate, this bot offers a seamless, real-time translation experience directly within your WhatsApp chats. Whether it's for personal conversations or business communications, this bot ensures that language differences no longer hinder your interactions. It's versatile, efficient, and user-friendly, making it a must-have for global communicators.
+The WhatsApp Translation Bot offers a seamless, real-time translation experience directly within your WhatsApp chats. Whether it's for personal conversations or business communications, this bot ensures that language differences no longer hinder your interactions. It's versatile, efficient, and user-friendly, making it a must-have for global communicators.
 
 **Overview**
 
