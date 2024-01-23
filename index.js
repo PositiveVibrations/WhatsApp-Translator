@@ -57,14 +57,14 @@ client.on('message_create', async (msg) => {
             const language = words[2].toLowerCase();
             const contact = msg.to;
             if (language === myDefaultLanguage) {
-                await msg.reply(`${translationMarker} Language set to default.`);
+                await msg.reply(`${translationMarker} ${styling}Language set to default.${styling}`);
                 console.log(`Language preference set to default for ${contact}`);
                 //set their language to default
                 userPreferences[contact] = language;
                 deleteUserEntryIfDefaultLanguage(userPreferences, contact, myDefaultLanguage);
             } else {
                 userPreferences[contact] = language;
-                await msg.reply(`${translationMarker} Language set to ${language}`);
+                await msg.reply(`${translationMarker} ${styling}Language set to ${language}${styling}`);
                 console.log(`Language preference set to ${language} for ${contact}`);
             }
             writeUserPreferences(userPreferences);
