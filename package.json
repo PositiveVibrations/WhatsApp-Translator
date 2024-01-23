@@ -1,0 +1,28 @@
+{
+  "name": "whatsapp-translator",
+  "version": "1.0.0",
+  "description": "translator for WhatsApp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/PositiveVibrations/WhatsApp-Translator.git"
+  },
+  "keywords": [
+    "WhatsApp",
+    "Translator"
+  ],
+  "author": "Jeffrey Stapleton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PositiveVibrations/WhatsApp-Translator/issues"
+  },
+  "homepage": "https://github.com/PositiveVibrations/WhatsApp-Translator#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "translate-google": "^1.5.0",
+    "whatsapp-web.js": "^1.23.0"
+  }
+}
