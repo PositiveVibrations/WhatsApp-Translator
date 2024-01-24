@@ -4,7 +4,7 @@ The WhatsApp Translation Bot offers a seamless, real-time translation experience
 
 ## Overview
 
-The bot is incredibly easy to use. It runs on both local machines and cloud services like Amazon Web Services, allowing for flexible deployment options. Once connected, it can instantly translate messages in WhatsApp chats according to your specified settings, ensuring that every conversation is understood regardless of language differences.
+The bot is incredibly easy to use. It runs on both local machines and cloud services like Amazon Web Services (with some tweaking), allowing for flexible deployment options. Once connected, it can instantly translate messages in WhatsApp chats according to your specified settings, ensuring that every conversation is understood regardless of language differences.
 
 ## Demo 
 
