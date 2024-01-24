@@ -2,9 +2,9 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const translate = require('translate-google');
 const fs = require('fs');
-const { de } = require('translate-google/languages');
 
 const userPreferencesFilePath = './userPreferences.json';
+const MAX_TRANSLATION_ATTEMPTS = 5;
 
 function readUserPreferences() {
     if (fs.existsSync(userPreferencesFilePath)) {
@@ -15,6 +15,22 @@ function readUserPreferences() {
 
 function writeUserPreferences(userPreferences) {
     fs.writeFileSync(userPreferencesFilePath, JSON.stringify(userPreferences, null, 2));
+}
+
+async function translateWithBackoff(message, targetLanguage) {
+    for (let attempt = 0; attempt < MAX_TRANSLATION_ATTEMPTS; attempt++) {
+        try {
+            return await translate(message, { to: targetLanguage });
+        } catch (err) {
+            if (err.code === 'BAD_NETWORK' && attempt < MAX_TRANSLATION_ATTEMPTS - 1) {
+                const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
+                await new Promise(resolve => setTimeout(resolve, delay));
+            } else {
+                throw err;
+            }
+        }
+    }
+    throw new Error('Translation failed after maximum retries.');
 }
 
 function deleteUserEntryIfDefaultLanguage(userPreferences, userPhoneNumber, defaultLanguage) {
@@ -43,7 +59,6 @@ client.on('message_create', async (msg) => {
     const userPreferences = readUserPreferences();
 
     const translationMarker = '🤖';
-    //change text bold: https://faq.whatsapp.com/539178204879377/?cms_platform=web
     const styling = '*';
 
     if (msg.body.startsWith(translationMarker)) {
@@ -64,7 +79,7 @@ client.on('message_create', async (msg) => {
                 deleteUserEntryIfDefaultLanguage(userPreferences, contact, myDefaultLanguage);
             } else {
                 userPreferences[contact] = language;
-                await msg.reply(`${translationMarker} ${styling}Language set to ${language}${styling}`);
+                await msg.reply(`${translationMarker} ${styling}Language set to ${language}.${styling}`);
                 console.log(`Language preference set to ${language} for ${contact}`);
             }
             writeUserPreferences(userPreferences);
@@ -87,15 +102,13 @@ client.on('message_create', async (msg) => {
 
         if (targetLanguage && (targetLanguage !== myDefaultLanguage || !msg.fromMe)) {
             try {
-                const translatedMessage = await translate(msg.body, { to: targetLanguage });
-    
-                //bold text
-                const replyMessage = `${translationMarker} ${styling}${translatedMessage}${styling}`;   
+                const translatedMessage = await translateWithBackoff(msg.body, targetLanguage);
+                const replyMessage = `${translationMarker} ${styling}${translatedMessage}${styling}`;
                 await msg.reply(replyMessage);
                 console.log("Translation sent:", replyMessage);
             } catch (err) {
                 console.error(err);
-                await msg.reply(`${translationMarker} Error in translation.`);
+                await msg.reply(`${translationMarker} Error in translation. Please try again later.`);
             }
         }
     }
