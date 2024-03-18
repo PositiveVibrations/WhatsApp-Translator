@@ -39,7 +39,8 @@ Setting up the WhatsApp Translation Bot is straightforward:
 We actively welcome contributions to the WhatsApp Translation Bot project. To get involved and help us improve this tool, please refer to our contribution guidelines.
 
 ## Disclaimer
-WhatsApp Translation Bot is an independent project and is not affiliated with Google or WhatsApp in any way. Its not endorsed or officially supported by Google or WhatsApp.
+WhatsApp Translation Bot is an independent project and is not affiliated with Google or WhatsApp in any way. Its not endorsed or officially supported by Google or WhatsApp. 
+It was created for Educational Purposes and will likely get your account banned due to the automated nature and spam detection, use at your own disgression.
 
 ## Licensing
 
